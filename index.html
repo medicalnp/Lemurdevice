@@ -6,6 +6,12 @@
     <!--added a div input the label-->
     <div id="label-counter"></div>
     <div id="chartsdiv"><canvas id="myChart" style="width:100%;max-width:700px"></canvas></div>
+    <div =id="buttons">
+        <button id="stop" onclick="stop()">Stop</button>
+        <button id="reset" onclick="reset()">Reset</button>
+
+    </div>
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
@@ -108,11 +114,10 @@ function count(){
 
             }
 
-            drawGraph();
         }
 
 
-
+setInterval(drawGraph,5000);
 function drawGraph() {
 var xValues = [window.bar2[0].className, window.bar2[1].className, window.bar2[2].className];
 var yValues = [timer[0], timer[1], timer[2]];
@@ -137,6 +142,17 @@ new Chart("myChart", {
 });
 }
 
+
+
+function reset() { 
+    for (let i = 0; i < maxPredictions; i++) {
+        timer[i] = 0;
+    }
+}
+
+function stop() {
+    window.location.reload(true);
+}
 /////////
 
 
