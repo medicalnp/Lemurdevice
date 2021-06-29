@@ -26,7 +26,7 @@
 
         // the link to your model provided by Teachable Machine export panel
         const URL = "https://teachablemachine.withgoogle.com/models/xr8PY6nrP/";
-        let model, webcam, ctx, labelContainer, maxPredictions, labelCounter, counter;
+        let model, webcam, ctx, labelContainer, maxPredictions, labelCounter, counter, myChart;
         
         //create an array with the number of classes - in this case 3 different classes filled with all 0 to start
         let timer = new Array(3).fill(0);
@@ -102,7 +102,7 @@ function count(){
                    
                 //*** add variable for counter label
                 const counter = 
-                    window.bar2[i].className + ": " + timer[i];
+                    "you have been in position: " + window.bar2[i].className + " for " + timer[i] + " seconds duration";
                 labelCounter.childNodes[i].innerHTML = counter;
 
 
@@ -117,13 +117,20 @@ function count(){
         }
 
 
-setInterval(drawGraph,5000);
+var timingBelt = setInterval(drawGraph,5000);
 function drawGraph() {
-var xValues = [window.bar2[0].className, window.bar2[1].className, window.bar2[2].className];
-var yValues = [timer[0], timer[1], timer[2]];
-var barColors = ["red", "green","blue","orange","brown"];
 
-new Chart("myChart", {
+const xValues = [window.bar2[0].className, window.bar2[1].className, window.bar2[2].className];
+const yValues = [timer[0], timer[1], timer[2]];
+const barColors = ["red", "green","blue","orange","brown"];
+
+if(window.myChart instanceof Chart)
+{
+    window.myChart.destroy();
+}
+
+
+window.myChart = new Chart("myChart", {
   type: "bar",
   data: {
     labels: xValues,
@@ -137,21 +144,26 @@ new Chart("myChart", {
     title: {
       display: true,
       text: "Duration of each classification"
-}
-  }
-});
+    }
+      }
+    });
 }
 
 
 
 function reset() { 
-    for (let i = 0; i < maxPredictions; i++) {
-        timer[i] = 0;
-    }
+        timer[0] = 0;
+        timer[1] = 0;
+        timer[2] = 0;
+        timer[3] = 0;
+       window.myChart.destroy();
+       drawGraph();
+    
 }
 
 function stop() {
     window.location.reload(true);
+    clearInterval(timingBelt);
 }
 /////////
 
