@@ -144,7 +144,11 @@ window.myChart = new Chart("myChart", {
     title: {
       display: true,
       text: "Duration of each classification"
-    }
+    },
+    scales: {
+            y: {
+                beginAtZero: true}
+            }
       }
     });
 }
