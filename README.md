@@ -1,2 +1,2 @@
 # TMposeclassifier
-Pose classifier modified from Teachable Machine
+Pose classifier for direction facing
