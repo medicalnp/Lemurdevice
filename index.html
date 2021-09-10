@@ -131,13 +131,16 @@ window.myChart = new Chart("myChart", {
   type: "bar",
   data: {
     labels: xValues,
-    datasets: [{ label: "Position",
+    datasets: [{ label: "Duration",
       backgroundColor: barColors,
       data: yValues
     }]
   },
   options: {
-    legend: {display: false},
+    legend: {display: false,
+            labels: {
+                    fontColor: "blue"}
+    },
     title: {
       display: false,
       text: "Duration of each classification"
